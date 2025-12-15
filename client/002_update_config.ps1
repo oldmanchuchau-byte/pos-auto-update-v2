@@ -1,11 +1,11 @@
-# client/002_update_config.ps1
-Write-Host "[CLIENT][002] Update config..."
+# master/002_update_config.ps1
+Write-Host "[MASTER][002] Update config..."
 
-$clientData = Join-Path $installPath "client_data"
-$configPath = Join-Path $clientData "config.json"
+$masterData = Join-Path $installPath "master_data"
+$configPath = Join-Path $masterData "config.json"
 
 if (-not (Test-Path $configPath)) {
-    Write-Host "[CLIENT][002] config.json not found, run 001 first." -ForegroundColor Yellow
+    Write-Host "[MASTER][002] config.json not found, run 001 first." -ForegroundColor Yellow
     return
 }
 
@@ -13,8 +13,14 @@ $configObj = Get-Content $configPath -Raw | ConvertFrom-Json
 
 # Update fields
 $configObj | Add-Member -NotePropertyName "lastUpdateAt" -NotePropertyValue (Get-Date).ToString("o") -Force
-$configObj | Add-Member -NotePropertyName "updateCount" -NotePropertyValue (($configObj.updateCount ?? 0) + 1) -Force
+
+# updateCount (compatible with Windows PowerShell 5.1)
+$curr = 0
+if ($configObj -and ($configObj.PSObject.Properties.Name -contains "updateCount") -and $null -ne $configObj.updateCount) {
+    $curr = [int]$configObj.updateCount
+}
+$configObj | Add-Member -NotePropertyName "updateCount" -NotePropertyValue ($curr + 1) -Force
 
 $configObj | ConvertTo-Json | Set-Content -Path $configPath -Encoding UTF8
 
-Write-Host "[CLIENT][002] DONE" -ForegroundColor Green
+Write-Host "[MASTER][002] DONE" -ForegroundColor Green
