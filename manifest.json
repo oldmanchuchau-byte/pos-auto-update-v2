@@ -5,7 +5,8 @@
     "scripts": [
       "001_initial_setup.ps1",
       "002_update_config.ps1",
-      "003_update_task.ps1"
+      "003_update_task.ps1",
+      "004_lock_edge_swipe.ps1"
     ]
   },
   "client": {
@@ -13,7 +14,8 @@
     "scripts": [
       "001_initial_setup.ps1",
       "002_update_config.ps1",
-      "003_update_task.ps1"
+      "003_update_task.ps1",
+      "004_lock_edge_swipe.ps1"
     ]
   },
   "config": {
