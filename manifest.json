@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "master": {
+    "lastScript": "003",
+    "scripts": [
+      "001_initial_setup.ps1",
+      "002_update_config.ps1",
+      "003_update_task.ps1"
+    ]
+  },
+  "client": {
+    "lastScript": "003",
+    "scripts": [
+      "001_initial_setup.ps1",
+      "002_update_config.ps1",
+      "003_update_task.ps1"
+    ]
+  },
+  "config": {
+    "installPath": "D:\\ChuChau\\POS-Auto-Update",
+    "taskName": "POS-Auto-Update"
+  }
+}
