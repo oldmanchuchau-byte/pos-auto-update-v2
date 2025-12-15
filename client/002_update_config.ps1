@@ -1,11 +1,11 @@
-# master/002_update_config.ps1
-Write-Host "[MASTER][002] Update config..."
+# client/002_update_config.ps1
+Write-Host "[CLIENT][002] Update config..."
 
-$masterData = Join-Path $installPath "master_data"
-$configPath = Join-Path $masterData "config.json"
+$clientData = Join-Path $installPath "client_data"
+$configPath = Join-Path $clientData "config.json"
 
 if (-not (Test-Path $configPath)) {
-    Write-Host "[MASTER][002] config.json not found, run 001 first." -ForegroundColor Yellow
+    Write-Host "[CLIENT][002] config.json not found, run 001 first." -ForegroundColor Yellow
     return
 }
 
@@ -23,4 +23,4 @@ $configObj | Add-Member -NotePropertyName "updateCount" -NotePropertyValue ($cur
 
 $configObj | ConvertTo-Json | Set-Content -Path $configPath -Encoding UTF8
 
-Write-Host "[MASTER][002] DONE" -ForegroundColor Green
+Write-Host "[CLIENT][002] DONE" -ForegroundColor Green
