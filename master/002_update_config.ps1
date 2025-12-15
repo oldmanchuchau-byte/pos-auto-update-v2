@@ -13,7 +13,13 @@ $configObj = Get-Content $configPath -Raw | ConvertFrom-Json
 
 # Update fields
 $configObj | Add-Member -NotePropertyName "lastUpdateAt" -NotePropertyValue (Get-Date).ToString("o") -Force
-$configObj | Add-Member -NotePropertyName "updateCount" -NotePropertyValue (($configObj.updateCount ?? 0) + 1) -Force
+
+# updateCount (compatible with Windows PowerShell 5.1)
+$curr = 0
+if ($configObj -and ($configObj.PSObject.Properties.Name -contains "updateCount") -and $null -ne $configObj.updateCount) {
+    $curr = [int]$configObj.updateCount
+}
+$configObj | Add-Member -NotePropertyName "updateCount" -NotePropertyValue ($curr + 1) -Force
 
 $configObj | ConvertTo-Json | Set-Content -Path $configPath -Encoding UTF8
 
